@@ -70,7 +70,7 @@ class GromaTrainer(Trainer):
         if self.train_dataset is None or not has_length(self.train_dataset):
             return None
 
-        if self.args.group_by_data_source:
+        if self.args.group_by_data_source: #True
             cumu_sizes = self.train_dataset.cumulative_sizes
             dataset_sizes = [cumu_sizes[0]] + [cumu_sizes[i] - cumu_sizes[i - 1] for i in range(1, len(cumu_sizes))]
             return RandomBatchSampler(

@@ -1,12 +1,12 @@
 #!/bin/bash
 
-
+export NCCL_P2P_DISABLE=1
 export PYTHONPATH=/file01/cmh/project/Groma
-export CUDA_VISIBLE_DEVICES=5
-torchrun --nnodes=1 --nproc_per_node=8 --master_port=25001 \
+export CUDA_VISIBLE_DEVICES=0,1,2,4
+torchrun --nnodes=1 --nproc_per_node=4 --master_port=25002 \
      /file01/cmh/project/Groma/groma/train/train_det.py \
     --vis_encoder "/file01/cmh/project/Groma/pretrain_model/dinov2" \
-    --dataset_config groma/data/configs/det_pretrain.py \
+    --dataset_config /file01/cmh/project/Groma/groma/data/configs/cmh_det.py \
     --bf16 True \
     --tf32 True \
     --num_classes 1 \
@@ -26,7 +26,7 @@ torchrun --nnodes=1 --nproc_per_node=8 --master_port=25001 \
     --logging_steps 100 \
     --lr_scheduler_type "cosine" \
     --per_device_train_batch_size 8 \
-    --dataloader_num_workers 8 \
+    --dataloader_num_workers 3 \
     --save_strategy "epoch" \
     --save_total_limit 1 \
     --report_to none \

@@ -24,11 +24,11 @@ def build_multi_datasets(dataset_cfg_file, tokenizer=None, **kwargs):
 
 
 def build_dataset(dataset_cfg, tokenizer=None, **kwargs):
-    dataset_type = dataset_cfg.pop('type')
-    ratio = dataset_cfg.pop('ratio', 1)
-    conv_temp = dataset_cfg.pop('conv_temp', 'default')
+    dataset_type = dataset_cfg.pop('type') # coco_box
+    ratio = dataset_cfg.pop('ratio', 1) # 1
+    conv_temp = dataset_cfg.pop('conv_temp', 'default') # 'default'
 
-    if dataset_type in ('coco_box', 'obj365_box', 'openimage_box', 'v3det_box'):
+    if dataset_type in ('coco_box', 'obj365_box', 'openimage_box', 'v3det_box'): # coco走这里
         dataset = ClassAgnosticCoCo(**dataset_cfg)
     elif dataset_type == 'sa1b_box':
         dataset = ClassAgnosticSA1B(**dataset_cfg)

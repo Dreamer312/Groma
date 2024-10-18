@@ -70,7 +70,8 @@ class TrainingArguments(transformers.TrainingArguments):
     lr_backbone_names: Optional[tuple] = field(default=("vis_encoder",))
     lr_linear_proj_names: Optional[tuple] = field(default=('reference_points', 'sampling_offsets'))
     lr_multiplier: Optional[float] = field(default=0.1)
-    group_by_data_source: Optional[bool] = field(default=True)
+    #group_by_data_source: Optional[bool] = field(default=True)
+    group_by_data_source: Optional[bool] = field(default=False)
 
 
 def safe_save_model_for_hf_trainer(trainer: transformers.Trainer, output_dir: str):
@@ -217,6 +218,7 @@ def train():
     optimizer = torch.optim.AdamW(param_dicts, lr=training_args.learning_rate, weight_decay=training_args.weight_decay)
 
     train_dataset = build_multi_datasets(data_args.dataset_config)
+    print(len(train_dataset))
     data_collator = DataCollatorForDetDataset()
 
     trainer = GromaTrainer(
