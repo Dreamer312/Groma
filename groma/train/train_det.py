@@ -189,8 +189,9 @@ def train():
         vis_output_layer=model_args.vis_output_layer,
     )
     model = CustomDDETRModel(model_cfg, pretrained_vis_encoder=model_args.vis_encoder)
+    print(model)
 
-    if training_args.freeze_vis_encoder:
+    if training_args.freeze_vis_encoder: 
         model.freeze_vis_encoder()
     if training_args.freeze_ddetr:
         model.freeze_ddetr()

@@ -23,3 +23,6 @@ output
 
 checkpoints
 ckpts*
+coco
+pretrain_model
+models.zip

@@ -2,14 +2,20 @@ import torch
 from torch.utils.data import Sampler
 from transformers import Trainer
 from typing import List, Iterator, Optional, Sized
+# from transformers.trainer import (
+#     has_length,
+#     get_parameter_names,
+#     is_sagemaker_mp_enabled,
+#     ALL_LAYERNORM_LAYERS,
+#     ShardedDDPOption,
+# )
+
 from transformers.trainer import (
     has_length,
     get_parameter_names,
     is_sagemaker_mp_enabled,
     ALL_LAYERNORM_LAYERS,
-    ShardedDDPOption,
 )
-
 
 class RandomBatchSampler(Sampler):
     data_source: Sized
@@ -78,8 +84,8 @@ class GromaTrainer(Trainer):
     def create_optimizer(self):
         if is_sagemaker_mp_enabled():
             return super().create_optimizer()
-        if self.sharded_ddp == ShardedDDPOption.SIMPLE:
-            return super().create_optimizer()
+        # if self.sharded_ddp == ShardedDDPOption.SIMPLE:
+        #     return super().create_optimizer()
 
         opt_model = self.model
         if self.optimizer is None:
